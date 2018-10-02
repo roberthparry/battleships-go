@@ -7,9 +7,9 @@ type Battleship struct {
 
 //NewBattleship create instance of a destroyer
 func NewBattleship() *Battleship {
-	battleship := &Battleship{}
-	battleship.Length = 5
-	battleship.Type = ShipTypeBattleShip
-	battleship.Name = battleship.Type.String()
-	return battleship
+	ship := &Battleship{}
+	ship.Length = 5
+	ship.Type = ShipTypeBattleShip
+	ship.Name = ship.Type.String()
+	return ship
 }

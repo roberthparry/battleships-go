@@ -7,9 +7,9 @@ type Destroyer struct {
 
 //NewDestroyer create instance of a destroyer
 func NewDestroyer() *Destroyer {
-	destroyer := &Destroyer{}
-	destroyer.Length = 4
-	destroyer.Type = ShipTypeDestroyer
-	destroyer.Name = destroyer.Type.String()
-	return destroyer
+	ship := &Destroyer{}
+	ship.Length = 4
+	ship.Type = ShipTypeDestroyer
+	ship.Name = ship.Type.String()
+	return ship
 }

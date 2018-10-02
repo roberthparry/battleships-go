@@ -20,49 +20,49 @@ type Gameboard struct {
 }
 
 //Setup set up the game board
-func (gameboard *Gameboard) Setup() {
-	gameboard.cellGrid = make([][]Cell, GameboardGridSize)
+func (board *Gameboard) Setup() {
+	board.cellGrid = make([][]Cell, GameboardGridSize)
 	for row := 0; row < GameboardGridSize; row++ {
-		gameboard.cellGrid[row] = make([]Cell, GameboardGridSize)
+		board.cellGrid[row] = make([]Cell, GameboardGridSize)
 		for column := 0; column < GameboardGridSize; column++ {
-			gameboard.cellGrid[row][column].Status = CellStatusUnshelled
+			board.cellGrid[row][column].Status = CellStatusUnshelled
 		}
 	}
-	gameboard.battleShip = NewBattleship()
-	gameboard.destroyer1 = NewDestroyer()
-	gameboard.destroyer2 = NewDestroyer()
+	board.battleShip = NewBattleship()
+	board.destroyer1 = NewDestroyer()
+	board.destroyer2 = NewDestroyer()
 
 	RandomInit()
 
-	gameboard.placeShip(&gameboard.battleShip.Ship)
-	gameboard.placeShip(&gameboard.destroyer1.Ship)
-	gameboard.placeShip(&gameboard.destroyer2.Ship)
+	board.placeShip(&board.battleShip.Ship)
+	board.placeShip(&board.destroyer1.Ship)
+	board.placeShip(&board.destroyer2.Ship)
 }
 
-func (gameboard *Gameboard) placeShip(ship *Ship) {
+func (board *Gameboard) placeShip(ship *Ship) {
 	var direction Direction
 	var position1 int
 	var position2 int
 
-	for cannotPlace := true; cannotPlace; cannotPlace = !gameboard.canPlaceShip(ship, position1, position2, direction) {
+	for cannotPlace := true; cannotPlace; cannotPlace = !board.canPlaceShip(ship, position1, position2, direction) {
 		direction = RandomDirection()
 		position1 = RandomPosition(ship.Length)
 		position2 = RandomPosition(1)
 	}
 
-	gameboard.doPlaceShip(ship, position1, position2, direction)
+	board.doPlaceShip(ship, position1, position2, direction)
 }
 
-func (gameboard *Gameboard) canPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) bool {
+func (board *Gameboard) canPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) bool {
 	if direction == DirectionDown {
 		for i := 0; i < ship.Length; i++ {
-			if gameboard.cellGrid[position1+i][position2].Ship != nil {
+			if board.cellGrid[position1+i][position2].Ship != nil {
 				return false
 			}
 		}
 	} else {
 		for i := 0; i < ship.Length; i++ {
-			if gameboard.cellGrid[position2][position1+i].Ship != nil {
+			if board.cellGrid[position2][position1+i].Ship != nil {
 				return false
 			}
 		}
@@ -70,29 +70,29 @@ func (gameboard *Gameboard) canPlaceShip(ship *Ship, position1 int, position2 in
 	return true
 }
 
-func (gameboard *Gameboard) doPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) {
+func (board *Gameboard) doPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) {
 	if direction == DirectionDown {
 		for i := 0; i < ship.Length; i++ {
-			gameboard.cellGrid[position1+i][position2].Ship = ship
+			board.cellGrid[position1+i][position2].Ship = ship
 		}
 	} else {
 		for i := 0; i < ship.Length; i++ {
-			gameboard.cellGrid[position2][position1+i].Ship = ship
+			board.cellGrid[position2][position1+i].Ship = ship
 		}
 	}
 }
 
 //Print print the battleships game-board
-func (gameboard *Gameboard) Print() {
+func (board *Gameboard) Print() {
 	fmt.Println("     ╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗")
 	fmt.Println("     ║ A │ B │ C │ D │ E │ F │ G │ H │ I │ J ║")
 	fmt.Println("╔════╬═══╪═══╪═══╪═══╪═══╪═══╪═══╪═══╪═══╪═══╣")
 	for row := 0; row < GameboardGridSize; row++ {
-		gameboard.printRow(row)
+		board.printRow(row)
 	}
 }
 
-func (gameboard *Gameboard) printRow(row int) {
+func (board *Gameboard) printRow(row int) {
 	if row == GameboardGridSize-1 {
 		fmt.Print("║ ", row+1, " ║")
 	} else {
@@ -100,7 +100,7 @@ func (gameboard *Gameboard) printRow(row int) {
 	}
 
 	for column := 0; column < GameboardGridSize; column++ {
-		fmt.Print(" ", gameboard.symbolForCell(&gameboard.cellGrid[row][column]), " ")
+		fmt.Print(" ", board.symbolForCell(&board.cellGrid[row][column]), " ")
 		if column == GameboardGridSize-1 {
 			fmt.Println("║")
 		} else {
@@ -115,7 +115,7 @@ func (gameboard *Gameboard) printRow(row int) {
 	}
 }
 
-func (gameboard *Gameboard) symbolForCell(cell *Cell) string {
+func (board *Gameboard) symbolForCell(cell *Cell) string {
 	if cell.Status != CellStatusShelled {
 		return " "
 	}
@@ -127,13 +127,13 @@ func (gameboard *Gameboard) symbolForCell(cell *Cell) string {
 }
 
 //IsGameWon returns true if all the ships are destroyed
-func (gameboard *Gameboard) IsGameWon() bool {
-	return gameboard.battleShip.IsDestroyed() && gameboard.destroyer1.IsDestroyed() && gameboard.destroyer2.IsDestroyed()
+func (board *Gameboard) IsGameWon() bool {
+	return board.battleShip.IsDestroyed() && board.destroyer1.IsDestroyed() && board.destroyer2.IsDestroyed()
 }
 
 //FireMissile fire a missile at the given row and column
-func (gameboard *Gameboard) FireMissile(row int, column int) FiringResult {
-	cell := &gameboard.cellGrid[row][column]
+func (board *Gameboard) FireMissile(row int, column int) FiringResult {
+	cell := &board.cellGrid[row][column]
 	if cell.Status == CellStatusShelled {
 		return FiringResultRepeat
 	}
