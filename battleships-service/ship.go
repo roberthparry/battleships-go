@@ -3,8 +3,6 @@ package service
 //Ship base class of ships
 type Ship struct {
 	Length int
-	Name   string
-	Type   ShipType
 	Hits   int
 }
 
