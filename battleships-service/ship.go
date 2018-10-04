@@ -17,17 +17,17 @@ type Battleship struct {
 }
 
 //NewDestroyer create instance of a destroyer
-func NewDestroyer() *Destroyer {
-	ship := &Destroyer{}
-	ship.Length = 4
-	return ship
+func NewDestroyer() *Ship {
+	destroyer := &Destroyer{}
+	destroyer.Length = 4
+	return &destroyer.Ship
 }
 
 //NewBattleship create instance of a destroyer
-func NewBattleship() *Battleship {
-	ship := &Battleship{}
-	ship.Length = 5
-	return ship
+func NewBattleship() *Ship {
+	battleship := &Battleship{}
+	battleship.Length = 5
+	return &battleship.Ship
 }
 
 //IsDestroyed returns true if the ship is destroyed
