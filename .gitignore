@@ -12,3 +12,5 @@
 *.out
 
 battleships-console/battleships-console
+
+\.vscode/
