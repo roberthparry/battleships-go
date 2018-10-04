@@ -32,8 +32,6 @@ func (board *Gameboard) Setup() {
 	board.destroyer1 = NewDestroyer()
 	board.destroyer2 = NewDestroyer()
 
-	RandomInit()
-
 	board.placeShip(&board.battleShip.Ship)
 	board.placeShip(&board.destroyer1.Ship)
 	board.placeShip(&board.destroyer2.Ship)
