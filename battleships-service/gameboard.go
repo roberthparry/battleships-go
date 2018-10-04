@@ -14,9 +14,9 @@ const columnHeaders = "abcdefghij"
 //Gameboard type representing the battleships board
 type Gameboard struct {
 	cellGrid   [][]Cell
-	destroyer1 *Destroyer
-	destroyer2 *Destroyer
-	battleShip *Battleship
+	destroyer1 *Ship
+	destroyer2 *Ship
+	battleShip *Ship
 }
 
 //Setup set up the game board
@@ -32,9 +32,9 @@ func (board *Gameboard) Setup() {
 	board.destroyer1 = NewDestroyer()
 	board.destroyer2 = NewDestroyer()
 
-	board.placeShip(&board.battleShip.Ship)
-	board.placeShip(&board.destroyer1.Ship)
-	board.placeShip(&board.destroyer2.Ship)
+	board.placeShip(board.battleShip)
+	board.placeShip(board.destroyer1)
+	board.placeShip(board.destroyer2)
 }
 
 func (board *Gameboard) placeShip(ship *Ship) {
