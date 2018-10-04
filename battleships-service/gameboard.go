@@ -161,7 +161,7 @@ func GameboardTranslateCellReference(cellReference string, row *int, column *int
 	*column = index
 
 	number, err := strconv.Atoi(cellReference[1:len(cellReference)])
-	if err != nil {
+	if err != nil || number > 10 || number < 1 {
 		return false
 	}
 
