@@ -6,28 +6,14 @@ type Ship struct {
 	Hits   int
 }
 
-//Destroyer a destroyer class
-type Destroyer struct {
-	Ship
-}
-
-//Battleship a destroyer class
-type Battleship struct {
-	Ship
-}
-
 //NewDestroyer create instance of a destroyer
 func NewDestroyer() *Ship {
-	destroyer := &Destroyer{}
-	destroyer.Length = 4
-	return &destroyer.Ship
+	return &Ship{Length: 4}
 }
 
 //NewBattleship create instance of a destroyer
 func NewBattleship() *Ship {
-	battleship := &Battleship{}
-	battleship.Length = 5
-	return &battleship.Ship
+	return &Ship{Length: 5}
 }
 
 //IsDestroyed returns true if the ship is destroyed
