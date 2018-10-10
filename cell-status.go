@@ -1,4 +1,4 @@
-package service
+package main
 
 const (
 	//CellStatusUnshelled cell is not shelled

@@ -1,4 +1,4 @@
-package service
+package main
 
 const (
 	//ShipTypeBattleShip ship is a battle-ship

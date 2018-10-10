@@ -1,4 +1,4 @@
-package service
+package main
 
 //Destroyer a destroyer class
 type Destroyer struct {

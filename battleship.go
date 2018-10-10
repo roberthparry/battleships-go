@@ -1,4 +1,4 @@
-package service
+package main
 
 //Battleship a destroyer class
 type Battleship struct {

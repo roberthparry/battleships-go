@@ -3,12 +3,10 @@ package main
 import (
 	"fmt"
 	"strings"
-
-	svc "github.com/roberthparry/battleships-go/battleships-service"
 )
 
 func main() {
-	board := &svc.Gameboard{}
+	board := &Gameboard{}
 	board.Setup()
 
 	for gameNotFinished := true; gameNotFinished; gameNotFinished = !board.IsGameWon() {
@@ -21,7 +19,7 @@ func main() {
 			return
 		}
 		var row, column int
-		if !svc.GameboardTranslateCellReference(cellReference, &row, &column) {
+		if !GameboardTranslateCellReference(cellReference, &row, &column) {
 			fmt.Println("'", cellReference, "'", " is not a valid cell.")
 			continue
 		}

@@ -1,4 +1,4 @@
-package service
+package main
 
 import "testing"
 
@@ -22,6 +22,7 @@ func TestGameboardTranslateCellReference(t *testing.T) {
 		{name: "invalid reference a12", args: args{cellReference: "a12", row: new(int), column: new(int)}, want: false},
 		{name: "invalid reference k1", args: args{cellReference: "k1", row: new(int), column: new(int)}, want: false},
 		{name: "invalid reference b1o", args: args{cellReference: "k1", row: new(int), column: new(int)}, want: false},
+		{name: "invalid reference aa", args: args{cellReference: "k1", row: new(int), column: new(int)}, want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
