@@ -1,4 +1,4 @@
-package service
+package main
 
 const (
 	//DirectionDown ship occupies cells going down

@@ -3,12 +3,10 @@ package main
 import (
 	"fmt"
 	"strings"
-
-	"github.com/roberthparry/battleships-go/battleships-service"
 )
 
 func main() {
-	board := &service.Gameboard{}
+	board := &Gameboard{}
 	board.Setup()
 
 	for gameNotFinished := true; gameNotFinished; gameNotFinished = !board.IsGameWon() {
@@ -21,20 +19,13 @@ func main() {
 			return
 		}
 		var row, column int
-		if !service.GameboardTranslateCellReference(cellReference, &row, &column) {
+		if !GameboardTranslateCellReference(cellReference, &row, &column) {
 			fmt.Println("'", cellReference, "'", " is not a valid cell.")
 			continue
 		}
 
 		result := board.FireMissile(row, column)
-		switch result {
-		case service.FiringResultHit:
-			fmt.Println("Hit!")
-		case service.FiringResultMissed:
-			fmt.Println("Missed!")
-		default:
-			fmt.Println("You've already been there!")
-		}
+		result.PrintResponse()
 	}
 
 	board.Print()

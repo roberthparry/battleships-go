@@ -1,4 +1,4 @@
-package service
+package main
 
 //Ship base class of ships
 type Ship struct {
