@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-//FiringResult the enumeration defining result of a shelling
+// FiringResult the enumeration defining result of a shelling
 type FiringResult int
 
 const (
@@ -20,11 +20,12 @@ var firingResult = [...]string{
 	"Already Been there",
 }
 
+// String Stringer implementation
 func (fr FiringResult) String() string {
 	return firingResult[fr]
 }
 
 // PrintResponse print a user response to the result.
 func (fr FiringResult) PrintResponse() {
-	fmt.Println("%s!", fr)
+	fmt.Printf("%s!\n", fr)
 }
