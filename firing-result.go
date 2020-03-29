@@ -17,7 +17,7 @@ const (
 var firingResult = [...]string{
 	"Missed",
 	"Hit",
-	"Repeat",
+	"Already Been there",
 }
 
 func (fr FiringResult) String() string {
@@ -26,12 +26,5 @@ func (fr FiringResult) String() string {
 
 // PrintResponse print a user response to the result.
 func (fr FiringResult) PrintResponse() {
-	switch fr {
-	case Hit:
-		fmt.Println("Hit!")
-	case Missed:
-		fmt.Println("Missed!")
-	default:
-		fmt.Println("You've already been there!")
-	}
+	fmt.Println("%s!", fr)
 }
