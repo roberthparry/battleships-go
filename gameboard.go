@@ -1,4 +1,4 @@
-package service
+package main
 
 import (
 	"fmt"
@@ -14,9 +14,9 @@ const columnHeaders = "abcdefghij"
 //Gameboard type representing the battleships board
 type Gameboard struct {
 	cellGrid   [][]Cell
-	destroyer1 *Ship
-	destroyer2 *Ship
-	battleShip *Ship
+	destroyer1 *Destroyer
+	destroyer2 *Destroyer
+	battleShip *Battleship
 }
 
 //Setup set up the game board
@@ -25,16 +25,18 @@ func (board *Gameboard) Setup() {
 	for row := 0; row < GameboardGridSize; row++ {
 		board.cellGrid[row] = make([]Cell, GameboardGridSize)
 		for column := 0; column < GameboardGridSize; column++ {
-			board.cellGrid[row][column].Status = CellStatusUnshelled
+			board.cellGrid[row][column].Status = Unshelled
 		}
 	}
 	board.battleShip = NewBattleship()
 	board.destroyer1 = NewDestroyer()
 	board.destroyer2 = NewDestroyer()
 
-	board.placeShip(board.battleShip)
-	board.placeShip(board.destroyer1)
-	board.placeShip(board.destroyer2)
+	RandomInit()
+
+	board.placeShip(&board.battleShip.Ship)
+	board.placeShip(&board.destroyer1.Ship)
+	board.placeShip(&board.destroyer2.Ship)
 }
 
 func (board *Gameboard) placeShip(ship *Ship) {
@@ -52,7 +54,7 @@ func (board *Gameboard) placeShip(ship *Ship) {
 }
 
 func (board *Gameboard) canPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) bool {
-	if direction == DirectionDown {
+	if direction == Down {
 		for i := 0; i < ship.Length; i++ {
 			if board.cellGrid[position1+i][position2].Ship != nil {
 				return false
@@ -69,7 +71,7 @@ func (board *Gameboard) canPlaceShip(ship *Ship, position1 int, position2 int, d
 }
 
 func (board *Gameboard) doPlaceShip(ship *Ship, position1 int, position2 int, direction Direction) {
-	if direction == DirectionDown {
+	if direction == Down {
 		for i := 0; i < ship.Length; i++ {
 			board.cellGrid[position1+i][position2].Ship = ship
 		}
@@ -114,7 +116,7 @@ func (board *Gameboard) printRow(row int) {
 }
 
 func (board *Gameboard) symbolForCell(cell *Cell) string {
-	if cell.Status != CellStatusShelled {
+	if cell.Status != Shelled {
 		return " "
 	}
 	if cell.Ship != nil {
@@ -132,18 +134,18 @@ func (board *Gameboard) IsGameWon() bool {
 //FireMissile fire a missile at the given row and column
 func (board *Gameboard) FireMissile(row int, column int) FiringResult {
 	cell := &board.cellGrid[row][column]
-	if cell.Status == CellStatusShelled {
-		return FiringResultRepeat
+	if cell.Status == Shelled {
+		return Repeat
 	}
 
-	cell.Status = CellStatusShelled
+	cell.Status = Shelled
 
 	if cell.Ship == nil {
-		return FiringResultMissed
+		return Missed
 	}
 
 	cell.Ship.Hits++
-	return FiringResultHit
+	return Hit
 }
 
 //GameboardTranslateCellReference translate A1, B1, etc. to a row and column
