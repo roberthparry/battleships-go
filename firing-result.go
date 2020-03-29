@@ -2,24 +2,34 @@ package main
 
 import "fmt"
 
-const (
-	//FiringResultMissed shell has missed
-	FiringResultMissed = 0
-	//FiringResultHit shell has hit a ship
-	FiringResultHit = 1
-	//FiringResultRepeat shell has hit an already shelled cell
-	FiringResultRepeat = 2
-)
-
 //FiringResult the enumeration defining result of a shelling
 type FiringResult int
 
-//PrintResponse print a user response to the result.
-func (result FiringResult) PrintResponse() {
-	switch result {
-	case FiringResultHit:
+const (
+	// Missed shell has missed
+	Missed FiringResult = iota
+	// Hit shell has hit a ship
+	Hit = 1
+	// Repeat shell has hit an already shelled cell occupied by a ship
+	Repeat = 2
+)
+
+var firingResult = [...]string{
+	"Missed",
+	"Hit",
+	"Repeat",
+}
+
+func (fr FiringResult) String() string {
+	return firingResult[fr]
+}
+
+// PrintResponse print a user response to the result.
+func (fr FiringResult) PrintResponse() {
+	switch fr {
+	case Hit:
 		fmt.Println("Hit!")
-	case FiringResultMissed:
+	case Missed:
 		fmt.Println("Missed!")
 	default:
 		fmt.Println("You've already been there!")

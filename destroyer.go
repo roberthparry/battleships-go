@@ -9,7 +9,7 @@ type Destroyer struct {
 func NewDestroyer() *Destroyer {
 	ship := &Destroyer{}
 	ship.Length = 4
-	ship.Type = ShipTypeDestroyer
+	ship.Type = DestroyerType
 	ship.Name = ship.Type.String()
 	return ship
 }
